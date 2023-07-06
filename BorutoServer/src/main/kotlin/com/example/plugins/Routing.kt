@@ -2,6 +2,7 @@ package com.example.plugins
 
 import com.example.routes.getAllHeroes
 import com.example.routes.root
+import com.example.routes.searchHeroes
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*
@@ -11,6 +12,7 @@ fun Application.configureRouting() {
     routing {
         root()
         getAllHeroes()
+        searchHeroes()
 
         staticResources("/images", "images")
     }
