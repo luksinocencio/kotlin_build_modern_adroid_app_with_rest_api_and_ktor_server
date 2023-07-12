@@ -10,7 +10,7 @@ import io.ktor.server.application.*
 
 class ApplicationTest {
     @Test
-    fun testRoot() {
+    fun accessRootEndpoint_AssertCorrectInformation() {
         withTestApplication(moduleFunction = Application::module) {
             handleRequest(HttpMethod.Get, "/").apply {
                 assertEquals(
