@@ -9,7 +9,7 @@ import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 import java.lang.IllegalArgumentException
 
-fun Route.getAllHeroes() {
+fun Route.getAllHeroes(){
     val heroRepository: HeroRepository by inject()
 
     get("/boruto/heroes") {
@@ -17,12 +17,14 @@ fun Route.getAllHeroes() {
             val page = call.request.queryParameters["page"]?.toInt() ?: 1
             require(page in 1..5)
 
-            var apiResponse = heroRepository.getAllHeroes(page = page)
-
-            call.respond(message = apiResponse, status = HttpStatusCode.OK)
-        } catch (e: NumberFormatException) {
+            val apiResponse = heroRepository.getAllHeroes(page = page)
             call.respond(
-                message = ApiResponse(success = false, message = "Only numbers allowed."),
+                message = apiResponse,
+                status = HttpStatusCode.OK
+            )
+        } catch (e: NumberFormatException){
+            call.respond(
+                message = ApiResponse(success = false, message = "Only Numbers Allowed."),
                 status = HttpStatusCode.BadRequest
             )
         } catch (e: IllegalArgumentException) {
