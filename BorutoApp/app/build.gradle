@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.borutoapp'
-    compileSdk 33
+    namespace 'com.devmeist3r.borutoapp'
+    compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.borutoapp"
+        applicationId "com.devmeist3r.borutoapp"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -23,8 +23,8 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += [
-                        "room.schemaLocation":"$projectDir/schemas".toString(),
-                        "room.incremental":"true"
+                        "room.schemaLocation": "$projectDir/schemas".toString(),
+                        "room.incremental"   : "true"
                 ]
             }
         }
@@ -66,7 +66,7 @@ dependencies {
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation 'androidx.compose.material3:material3'
+    implementation 'com.google.android.material:material:1.11.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
