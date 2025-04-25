@@ -18,6 +18,7 @@ import com.devmeist3r.borutoapp.domain.model.*
 import com.devmeist3r.borutoapp.ui.theme.*
 import com.devmeist3r.borutoapp.util.*
 import com.google.accompanist.pager.*
+import com.devmeist3r.borutoapp.util.Constants.LAST_ON_BOARDING_PAGE
 
 @ExperimentalAnimationApi
 @OptIn(ExperimentalPagerApi::class)
@@ -68,7 +69,7 @@ fun WelcomeScreen(navController: NavController) {
 fun FinishButton(
     modifier: Modifier = Modifier,
     pagerState: PagerState,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -78,7 +79,7 @@ fun FinishButton(
     ) {
         AnimatedVisibility(
             modifier = Modifier.fillMaxWidth(),
-            visible = pagerState.currentPage == 2
+            visible = pagerState.currentPage == LAST_ON_BOARDING_PAGE,
         ) {
             Button(
                 onClick = onClick,
