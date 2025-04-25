@@ -3,6 +3,7 @@ package com.devmeist3r.borutoapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.devmeist3r.borutoapp.navigation.SetupNavGraph
@@ -10,6 +11,7 @@ import com.devmeist3r.borutoapp.ui.theme.BorutoAppTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalAnimationApi
 @OptIn(ExperimentalPagerApi::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

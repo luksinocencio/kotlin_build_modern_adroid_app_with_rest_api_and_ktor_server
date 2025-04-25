@@ -1,5 +1,6 @@
 package com.devmeist3r.borutoapp.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,6 +13,7 @@ import com.devmeist3r.borutoapp.presentation.screens.welcome.WelcomeScreen
 import com.devmeist3r.borutoapp.util.Constants.DETAILS_ARGUMENT_KEY
 import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalAnimationApi
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
