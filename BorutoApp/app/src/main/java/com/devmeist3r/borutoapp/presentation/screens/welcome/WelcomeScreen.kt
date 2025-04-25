@@ -11,19 +11,24 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.tooling.preview.*
+import androidx.hilt.navigation.compose.*
 import androidx.navigation.*
 import androidx.navigation.compose.*
-import com.devmeist3r.borutoapp.R
+import com.google.accompanist.pager.*
+import com.devmeist3r.borutoapp.*
 import com.devmeist3r.borutoapp.domain.model.*
+import com.devmeist3r.borutoapp.navigation.Screen
 import com.devmeist3r.borutoapp.ui.theme.*
 import com.devmeist3r.borutoapp.util.*
-import com.google.accompanist.pager.*
 import com.devmeist3r.borutoapp.util.Constants.LAST_ON_BOARDING_PAGE
 
 @ExperimentalAnimationApi
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun WelcomeScreen(navController: NavController) {
+fun WelcomeScreen(
+    navController: NavController,
+    welcomeViewModel: WelcomeViewModel = hiltViewModel(),
+) {
     val pages = listOf(
         OnBoardingPage.First,
         OnBoardingPage.Second,
@@ -59,7 +64,9 @@ fun WelcomeScreen(navController: NavController) {
             modifier = Modifier.weight(1f),
             pagerState = pagerState
         ) {
-
+            navController.popBackStack()
+            navController.navigate(Screen.Home.route)
+            welcomeViewModel.saveOnBoardingState(completed = true)
         }
     }
 }

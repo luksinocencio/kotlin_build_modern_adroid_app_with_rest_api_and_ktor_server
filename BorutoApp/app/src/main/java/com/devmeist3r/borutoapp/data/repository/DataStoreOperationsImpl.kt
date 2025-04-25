@@ -1,4 +1,4 @@
-package com.devmeist3r.borutoapp.data.pref
+package com.devmeist3r.borutoapp.data.repository
 
 import androidx.datastore.core.*
 import androidx.datastore.preferences.*
@@ -12,7 +12,7 @@ import com.devmeist3r.borutoapp.util.Constants.PREFERENCES_NAME
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCES_NAME)
 
-class DataStoreOperationImpl(context: Context) : DataStoreOperation {
+class DataStoreOperationsImpl(context: Context) : DataStoreOperations {
     private object PreferenceKey {
         val onBoardingKey = booleanPreferencesKey(name = PREFERENCES_KEY)
     }

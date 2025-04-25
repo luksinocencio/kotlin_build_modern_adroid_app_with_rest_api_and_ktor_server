@@ -1,17 +1,14 @@
 package com.devmeist3r.borutoapp.navigation
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import com.devmeist3r.borutoapp.presentation.screens.splahscreen.SplashScreen
-import com.devmeist3r.borutoapp.presentation.screens.welcome.WelcomeScreen
+import androidx.compose.animation.*
+import androidx.compose.runtime.*
+import androidx.navigation.*
+import androidx.navigation.compose.*
+import com.google.accompanist.pager.*
+import com.devmeist3r.borutoapp.presentation.screens.home.*
+import com.devmeist3r.borutoapp.presentation.screens.splahscreen.*
+import com.devmeist3r.borutoapp.presentation.screens.welcome.*
 import com.devmeist3r.borutoapp.util.Constants.DETAILS_ARGUMENT_KEY
-import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalAnimationApi
 @OptIn(ExperimentalPagerApi::class)
@@ -19,7 +16,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Welcome.route
+        startDestination = Screen.Splash.route
     ) {
         composable(route = Screen.Splash.route) {
             SplashScreen(navController = navController)
@@ -28,7 +25,7 @@ fun SetupNavGraph(navController: NavHostController) {
             WelcomeScreen(navController = navController)
         }
         composable(route = Screen.Home.route) {
-
+            HomeScreen(navController = navController)
         }
         composable(
             route = Screen.Details.route,
