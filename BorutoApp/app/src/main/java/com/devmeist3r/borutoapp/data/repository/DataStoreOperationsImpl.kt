@@ -1,14 +1,20 @@
 package com.devmeist3r.borutoapp.data.repository
 
-import androidx.datastore.core.*
-import androidx.datastore.preferences.*
-import androidx.datastore.preferences.core.*
-import kotlinx.coroutines.flow.*
-import java.io.*
-import android.content.*
-import com.devmeist3r.borutoapp.domain.repository.*
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import java.io.IOException
+import android.content.Context
+import com.devmeist3r.borutoapp.domain.repository.DataStoreOperations
 import com.devmeist3r.borutoapp.util.Constants.PREFERENCES_KEY
 import com.devmeist3r.borutoapp.util.Constants.PREFERENCES_NAME
+
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCES_NAME)
 

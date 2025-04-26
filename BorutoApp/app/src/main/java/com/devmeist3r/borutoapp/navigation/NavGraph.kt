@@ -1,14 +1,18 @@
 package com.devmeist3r.borutoapp.navigation
 
-import androidx.compose.animation.*
-import androidx.compose.runtime.*
-import androidx.navigation.*
-import androidx.navigation.compose.*
-import com.google.accompanist.pager.*
-import com.devmeist3r.borutoapp.presentation.screens.home.*
-import com.devmeist3r.borutoapp.presentation.screens.splahscreen.*
-import com.devmeist3r.borutoapp.presentation.screens.welcome.*
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.devmeist3r.borutoapp.presentation.screens.home.HomeScreen
+import com.devmeist3r.borutoapp.presentation.screens.splahscreen.SplashScreen
+import com.devmeist3r.borutoapp.presentation.screens.welcome.WelcomeScreen
 import com.devmeist3r.borutoapp.util.Constants.DETAILS_ARGUMENT_KEY
+
 
 @ExperimentalAnimationApi
 @OptIn(ExperimentalPagerApi::class)

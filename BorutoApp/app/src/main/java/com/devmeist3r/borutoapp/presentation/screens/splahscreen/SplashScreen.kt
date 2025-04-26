@@ -1,20 +1,32 @@
 package com.devmeist3r.borutoapp.presentation.screens.splahscreen
 
-import androidx.compose.animation.core.*
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
-import androidx.compose.ui.draw.*
-import androidx.compose.ui.graphics.*
-import androidx.compose.ui.res.*
-import androidx.compose.ui.tooling.preview.*
-import androidx.hilt.navigation.compose.*
-import androidx.navigation.*
-import android.content.res.*
-import com.devmeist3r.borutoapp.*
-import com.devmeist3r.borutoapp.navigation.*
-import com.devmeist3r.borutoapp.ui.theme.*
+import android.content.res.Configuration
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.devmeist3r.borutoapp.R
+import com.devmeist3r.borutoapp.navigation.Screen
+import com.devmeist3r.borutoapp.ui.theme.Purple500
+import com.devmeist3r.borutoapp.ui.theme.Purple700
+
 
 @Composable
 fun SplashScreen(

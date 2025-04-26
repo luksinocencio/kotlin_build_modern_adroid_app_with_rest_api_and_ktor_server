@@ -1,16 +1,19 @@
 package com.devmeist3r.borutoapp.di
 
-import dagger.*
-import dagger.hilt.*
-import dagger.hilt.android.qualifiers.*
-import dagger.hilt.components.*
-import javax.inject.*
-import android.content.*
-import com.devmeist3r.borutoapp.data.repository.*
-import com.devmeist3r.borutoapp.domain.repository.*
-import com.devmeist3r.borutoapp.domain.use_cases.*
-import com.devmeist3r.borutoapp.domain.use_cases.read_onboarding.*
-import com.devmeist3r.borutoapp.domain.use_cases.save_onboarding.*
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+import android.content.Context
+import com.devmeist3r.borutoapp.data.repository.DataStoreOperationsImpl
+import com.devmeist3r.borutoapp.data.repository.Repository
+import com.devmeist3r.borutoapp.domain.repository.DataStoreOperations
+import com.devmeist3r.borutoapp.domain.use_cases.UseCases
+import com.devmeist3r.borutoapp.domain.use_cases.read_onboarding.ReadOnBoardingUseCase
+import com.devmeist3r.borutoapp.domain.use_cases.save_onboarding.SaveOnBoardingUseCase
+
 
 @Module
 @InstallIn(SingletonComponent::class)

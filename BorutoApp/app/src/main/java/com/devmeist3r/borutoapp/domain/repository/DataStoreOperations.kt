@@ -1,6 +1,7 @@
 package com.devmeist3r.borutoapp.domain.repository
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+
 
 interface DataStoreOperations {
     suspend fun saveOnBoardingState(completed: Boolean)

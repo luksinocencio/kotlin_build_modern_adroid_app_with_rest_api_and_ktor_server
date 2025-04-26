@@ -1,8 +1,8 @@
 package com.devmeist3r.borutoapp.presentation.screens.home
 
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.navigation.*
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 
 @Composable
 fun HomeScreen(navController: NavController) {

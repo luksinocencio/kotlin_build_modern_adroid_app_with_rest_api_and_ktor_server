@@ -20,5 +20,4 @@ interface HeroDao {
 
     @Query("DELETE FROM hero_table")
     suspend fun deleteAllHeroes()
-
 }
