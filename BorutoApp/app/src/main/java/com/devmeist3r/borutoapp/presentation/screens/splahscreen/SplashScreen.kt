@@ -26,6 +26,7 @@ import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.navigation.Screen
 import com.devmeist3r.borutoapp.ui.theme.Purple500
 import com.devmeist3r.borutoapp.ui.theme.Purple700
+import androidx.compose.runtime.getValue
 
 
 @Composable
@@ -33,7 +34,7 @@ fun SplashScreen(
     navController: NavHostController,
     splashViewModel: SplashViewModel = hiltViewModel(),
 ) {
-    val onBoardingComplete = splashViewModel.onBoardingCompleted.collectAsState().value
+    val onBoardingComplete by splashViewModel.onBoardingCompleted.collectAsState()
     val degrees = remember { Animatable(0f) }
 
     LaunchedEffect(key1 = true) {
@@ -46,7 +47,6 @@ fun SplashScreen(
         )
 
         navController.popBackStack()
-
         if (onBoardingComplete) {
             navController.navigate(Screen.Home.route)
         } else {

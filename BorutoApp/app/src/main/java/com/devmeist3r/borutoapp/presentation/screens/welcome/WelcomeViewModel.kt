@@ -10,7 +10,7 @@ import com.devmeist3r.borutoapp.domain.use_cases.UseCases
 
 @HiltViewModel
 class WelcomeViewModel @Inject constructor(
-    private val useCases: UseCases,
+    private val useCases: UseCases
 ) : ViewModel() {
     fun saveOnBoardingState(completed: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
