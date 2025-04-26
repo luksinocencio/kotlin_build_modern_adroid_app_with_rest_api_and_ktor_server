@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.ui.theme.topAppBarBackgroundColor
 import com.devmeist3r.borutoapp.ui.theme.topAppBarContentColor
