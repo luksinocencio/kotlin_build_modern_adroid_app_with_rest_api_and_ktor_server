@@ -44,7 +44,7 @@ import com.devmeist3r.borutoapp.ui.theme.buttonBackgroundColor
 import com.devmeist3r.borutoapp.ui.theme.descriptionColor
 import com.devmeist3r.borutoapp.ui.theme.inactiveIndicatorColor
 import com.devmeist3r.borutoapp.ui.theme.titleColor
-import com.devmeist3r.borutoapp.ui.theme.welcomeScreenBackground
+import com.devmeist3r.borutoapp.ui.theme.welcomeScreenBackgroundColor
 import com.devmeist3r.borutoapp.util.Constants
 import com.devmeist3r.borutoapp.util.Constants.LAST_ON_BOARDING_PAGE
 
@@ -67,7 +67,7 @@ fun WelcomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colors.welcomeScreenBackground)
+            .background(color = MaterialTheme.colors.welcomeScreenBackgroundColor)
     ) {
         HorizontalPager(
             modifier = Modifier.weight(10f),
