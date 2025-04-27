@@ -1,8 +1,8 @@
 package com.devmeist3r.borutoapp.domain.model
 
-import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.Serializable
 
-@InternalSerializationApi
+@Serializable
 data class ApiResponse(
     val success: Boolean,
     val message: String? = null,

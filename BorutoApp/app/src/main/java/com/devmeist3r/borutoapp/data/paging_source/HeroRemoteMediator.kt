@@ -5,14 +5,12 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import kotlinx.serialization.InternalSerializationApi
 import javax.inject.Inject
 import com.devmeist3r.borutoapp.data.local.BorutoDatabase
 import com.devmeist3r.borutoapp.data.remote.BorutoApi
 import com.devmeist3r.borutoapp.domain.model.Hero
 import com.devmeist3r.borutoapp.domain.model.HeroRemoteKeys
 
-@InternalSerializationApi
 @ExperimentalPagingApi
 class HeroRemoteMediator @Inject constructor(
     private val borutoApi: BorutoApi,

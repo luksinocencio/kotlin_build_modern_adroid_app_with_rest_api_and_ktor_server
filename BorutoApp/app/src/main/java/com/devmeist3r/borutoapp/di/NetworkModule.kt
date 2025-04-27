@@ -7,7 +7,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -20,7 +19,6 @@ import com.devmeist3r.borutoapp.data.repository.RemoteDataSourceImpl
 import com.devmeist3r.borutoapp.domain.repository.RemoteDataSource
 import com.devmeist3r.borutoapp.util.Constants.BASE_URL
 
-@InternalSerializationApi
 @ExperimentalPagingApi
 @ExperimentalSerializationApi
 @Module

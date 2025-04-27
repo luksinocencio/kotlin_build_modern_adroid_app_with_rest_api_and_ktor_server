@@ -5,7 +5,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.InternalSerializationApi
 import com.devmeist3r.borutoapp.data.local.BorutoDatabase
 import com.devmeist3r.borutoapp.data.paging_source.HeroRemoteMediator
 import com.devmeist3r.borutoapp.data.remote.BorutoApi
@@ -14,7 +13,6 @@ import com.devmeist3r.borutoapp.domain.repository.RemoteDataSource
 import com.devmeist3r.borutoapp.util.Constants.ITEMS_PER_PAGE
 
 
-@InternalSerializationApi
 @ExperimentalPagingApi
 class RemoteDataSourceImpl (
     private val borutoApi: BorutoApi,
