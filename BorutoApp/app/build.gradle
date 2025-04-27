@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.plugin.compose'
+    id 'org.jetbrains.kotlin.plugin.serialization'
     id 'com.google.dagger.hilt.android'
 }
 
@@ -30,13 +31,12 @@ android {
                 ]
             }
         }
-
-        buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8080\""
     }
 
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8080\""
+            buildConfigField "String", "BASE_URL_EMULATOR", "\"http://10.0.2.2:8080\""
+            buildConfigField "String", "BASE_URL_DEVICE", "\"http://192.168.1.57:8080\""
         }
         release {
             minifyEnabled false
@@ -93,7 +93,6 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
-
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
     // Paging 3.0
