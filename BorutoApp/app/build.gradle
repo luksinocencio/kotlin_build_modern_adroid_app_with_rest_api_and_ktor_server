@@ -32,17 +32,28 @@ android {
             }
         }
     }
+    flavorDimensions "server" // 🔥 define a dimensão
+    productFlavors {
+        mac {
+            dimension "server"
+            buildConfigField "String", "BASE_URL_DEVICE", "\"http://192.168.1.57:8080\""
+        }
+        windows {
+            dimension "server"
+            buildConfigField "String", "BASE_URL_DEVICE", "\"http://192.168.1.50:8080\""
+        }
+    }
 
     buildTypes {
         debug {
             buildConfigField "String", "BASE_URL_EMULATOR", "\"http://10.0.2.2:8080\""
-            buildConfigField "String", "BASE_URL_DEVICE", "\"http://192.168.1.57:8080\""
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
