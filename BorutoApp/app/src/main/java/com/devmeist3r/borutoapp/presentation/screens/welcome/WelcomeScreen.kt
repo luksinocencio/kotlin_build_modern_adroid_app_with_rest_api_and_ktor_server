@@ -36,7 +36,7 @@ import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.domain.model.OnBoardingPage
 import com.devmeist3r.borutoapp.navigation.Screen
 import com.devmeist3r.borutoapp.ui.theme.EXTRA_LARGE_PADDING
-import com.devmeist3r.borutoapp.ui.theme.PAGING_INDICATOR_SIZE
+import com.devmeist3r.borutoapp.ui.theme.PAGING_INDICATOR_WIDTH
 import com.devmeist3r.borutoapp.ui.theme.PAGING_INDICATOR_SPACING
 import com.devmeist3r.borutoapp.ui.theme.SMALL_PADDING
 import com.devmeist3r.borutoapp.ui.theme.activeIndicatorColor
@@ -84,7 +84,7 @@ fun WelcomeScreen(
             pagerState = pagerState,
             activeColor = MaterialTheme.colors.activeIndicatorColor,
             inactiveColor = MaterialTheme.colors.inactiveIndicatorColor,
-            indicatorWidth = PAGING_INDICATOR_SIZE,
+            indicatorWidth = PAGING_INDICATOR_WIDTH,
             spacing = PAGING_INDICATOR_SPACING,
         )
         FinishButton(

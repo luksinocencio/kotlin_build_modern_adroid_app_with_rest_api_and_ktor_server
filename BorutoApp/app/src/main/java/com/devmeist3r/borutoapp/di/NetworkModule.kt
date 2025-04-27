@@ -8,11 +8,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import android.util.Log
 import com.devmeist3r.borutoapp.data.local.BorutoDatabase
 import com.devmeist3r.borutoapp.data.remote.BorutoApi
 import com.devmeist3r.borutoapp.data.repository.RemoteDataSourceImpl
@@ -27,21 +29,34 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor { message ->
+            Log.d("HTTP_LOG", message)
+        }.apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
         return OkHttpClient.Builder()
-            .readTimeout(15, TimeUnit.MINUTES)
-            .connectTimeout(15, TimeUnit.MINUTES)
+            .addInterceptor(loggingInterceptor)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
             .build()
     }
 
     @Provides
     @Singleton
     fun provideRetofitInstance(okHttpClient: OkHttpClient): Retrofit {
-        val contentType = MediaType.get("application/json")
+        val contentType = "application/json".toMediaType()
+
+        val json = Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+            prettyPrint = false
+        }
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(Json.asConverterFactory(contentType))
+            .addConverterFactory(json.asConverterFactory(contentType)) // <<<<<<
             .build()
     }
 
