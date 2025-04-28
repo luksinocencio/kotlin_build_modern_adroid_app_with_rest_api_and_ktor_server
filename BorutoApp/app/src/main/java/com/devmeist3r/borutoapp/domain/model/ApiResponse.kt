@@ -1,7 +1,9 @@
 package com.devmeist3r.borutoapp.domain.model
 
 import kotlinx.serialization.Serializable
+import android.annotation.SuppressLint
 
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class ApiResponse(
     val success: Boolean,

@@ -446,7 +446,7 @@ class HeroRepositoryImpl: HeroRepository {
                 }
             }
             founded
-        }else{
+        } else {
             emptyList()
         }
     }

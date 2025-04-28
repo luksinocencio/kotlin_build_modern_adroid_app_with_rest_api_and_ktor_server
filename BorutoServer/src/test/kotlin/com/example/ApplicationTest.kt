@@ -50,7 +50,6 @@ class ApplicationTest {
                         actual = response.status()
                     )
                     val actual = Json.decodeFromString<ApiResponse>(response.content.toString())
-
                     val expected = ApiResponse(
                         success = true,
                         message = "ok",
@@ -96,7 +95,7 @@ class ApplicationTest {
                 )
                 val expected = ApiResponse(
                     success = false,
-                    message = "Heroes not Found.",
+                    message = "Page not Found.",
                 )
                 val actual = Json.decodeFromString<ApiResponse>(response.content.toString())
                 println("expected: $expected")
@@ -201,15 +200,17 @@ class ApplicationTest {
     }
 
     @Test
-    fun `access non existing endpoint, assert not found`(){
+    fun `access non existing endpoint, assert not found`() {
         withTestApplication(moduleFunction = Application::module) {
             handleRequest(HttpMethod.Get, "/unknown").apply {
-                assertEquals(
-                    expected = HttpStatusCode.NotFound,
-                    actual = response.status()
-                )
+                assertEquals(HttpStatusCode.NotFound, response.status())
 
-                assertEquals(expected = "Page not Found.", actual = response.content)
+                val apiResponse = Json.decodeFromString<ApiResponse>(response.content.toString())
+                assertFalse(apiResponse.success)
+                assertEquals(
+                    expected = "Page not Found.",
+                    actual = apiResponse.message
+                )
             }
         }
     }
