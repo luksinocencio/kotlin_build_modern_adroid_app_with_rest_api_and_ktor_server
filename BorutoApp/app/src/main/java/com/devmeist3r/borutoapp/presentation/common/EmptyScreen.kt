@@ -25,7 +25,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
+import java.net.ConnectException
+import java.net.SocketTimeoutException
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.ui.theme.DarkGray
 import com.devmeist3r.borutoapp.ui.theme.LightGray
@@ -35,19 +38,21 @@ import com.devmeist3r.borutoapp.ui.theme.SMALL_PADDING
 @Composable
 fun EmptyScreen(error: LoadState.Error) {
     val message by remember {
-        mutableStateOf(parseErrorMessage(message = error.toString()))
+        mutableStateOf(parseErrorMessage(error = error))
     }
     val icon by remember {
         mutableStateOf(R.drawable.ic_network_error)
     }
 
     var startAnimation by remember { mutableStateOf(false) }
+
     val alphaAnim by animateFloatAsState(
         targetValue = if (startAnimation) ContentAlpha.disabled else 0f,
         animationSpec = tween(
             durationMillis = 1000
         )
     )
+
     LaunchedEffect(key1 = true) {
         startAnimation = true
     }
@@ -83,12 +88,14 @@ fun EmptyContent(alphaAnim: Float, icon: Int, message: String) {
     }
 }
 
-fun parseErrorMessage(message: String): String {
-    return when {
-        message.contains("SocketTimeoutException") -> {
+fun parseErrorMessage(error: LoadState.Error): String {
+    Log.d("parseErrorMessage", "parseErrorMessage: $error")
+
+    return when(error.error) {
+        is SocketTimeoutException -> {
             "Server Unavailable."
         }
-        message.contains("ConnectException") -> {
+        is ConnectException -> {
             "Internet Unavailable."
         }
         else -> {
