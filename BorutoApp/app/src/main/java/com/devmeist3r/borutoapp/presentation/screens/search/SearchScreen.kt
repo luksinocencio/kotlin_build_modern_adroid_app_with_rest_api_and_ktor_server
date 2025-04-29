@@ -9,8 +9,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.annotation.ExperimentalCoilApi
+import android.annotation.SuppressLint
 import com.devmeist3r.borutoapp.presentation.common.ListContent
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @ExperimentalCoilApi
 @Composable
 fun SearchScreen(
@@ -24,7 +26,9 @@ fun SearchScreen(
         topBar = {
             SearchTopBar(
                 text = searchQuery,
-                onTextChange = { searchViewModel.updateSearchQuery(query = it) },
+                onTextChange = {
+                    searchViewModel.updateSearchQuery(query = it)
+                },
                 onSearchClicked = {
                     searchViewModel.searchHeroes(query = it)
                 },
