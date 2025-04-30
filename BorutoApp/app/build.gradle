@@ -36,7 +36,7 @@ android {
     productFlavors {
         mac {
             dimension "server"
-            buildConfigField "String", "BASE_URL_DEVICE", "\"http://192.168.1.62:8080\""
+            buildConfigField "String", "BASE_URL_DEVICE", "\"http://192.168.1.57:8080\""
         }
         windows {
             dimension "server"
