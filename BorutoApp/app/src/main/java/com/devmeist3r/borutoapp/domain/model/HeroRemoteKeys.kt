@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 import com.devmeist3r.borutoapp.util.Constants.HERO_REMOTE_KEYS_DATABASE_TABLE
 
+@OptIn(kotlinx.serialization.InternalSerializationApi::class)
 @Serializable
 @Entity(tableName = HERO_REMOTE_KEYS_DATABASE_TABLE)
 data class HeroRemoteKeys(
