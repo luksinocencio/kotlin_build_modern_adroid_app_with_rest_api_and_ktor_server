@@ -3,15 +3,36 @@ package com.devmeist3r.borutoapp.presentation.screens.details
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.BottomSheetScaffoldState
 import androidx.compose.material.BottomSheetValue.Collapsed
 import androidx.compose.material.BottomSheetValue.Expanded
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -24,11 +45,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import android.graphics.Color.parseColor
 import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.domain.model.Hero
 import com.devmeist3r.borutoapp.presentation.components.InfoBox
 import com.devmeist3r.borutoapp.presentation.components.OrderedList
-import com.devmeist3r.borutoapp.ui.theme.*
+import com.devmeist3r.borutoapp.ui.theme.EXPANDED_RADIUS_LEVEL
+import com.devmeist3r.borutoapp.ui.theme.EXTRA_LARGE_PADDING
+import com.devmeist3r.borutoapp.ui.theme.INFO_ICON_SIZE
+import com.devmeist3r.borutoapp.ui.theme.LARGE_PADDING
+import com.devmeist3r.borutoapp.ui.theme.MEDIUM_PADDING
+import com.devmeist3r.borutoapp.ui.theme.MIN_SHEET_HEIGHT
+import com.devmeist3r.borutoapp.ui.theme.SMALL_PADDING
+import com.devmeist3r.borutoapp.ui.theme.titleColor
 import com.devmeist3r.borutoapp.util.Constants.ABOUT_TEXT_MAX_LINES
 import com.devmeist3r.borutoapp.util.Constants.BASE_URL
 import com.devmeist3r.borutoapp.util.Constants.MIN_BACKGROUND_IMAGE_HEIGHT
@@ -38,8 +68,24 @@ import com.devmeist3r.borutoapp.util.Constants.MIN_BACKGROUND_IMAGE_HEIGHT
 @Composable
 fun DetailsContent(
     navController: NavHostController,
-    selectedHero: Hero?
+    selectedHero: Hero?,
+    colors: Map<String, String>,
 ) {
+    var vibrant by remember { mutableStateOf("#000000") }
+    var darkVibrant by remember { mutableStateOf("#000000") }
+    var onDarkVibrant by remember { mutableStateOf("#ffffff") }
+
+    LaunchedEffect(key1 = selectedHero) {
+        vibrant = colors["vibrant"]!!
+        darkVibrant = colors["darkVibrant"]!!
+        onDarkVibrant = colors["onDarkVibrant"]!!
+    }
+
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setStatusBarColor(
+        color = Color(parseColor(darkVibrant))
+    )
+
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(initialValue = Expanded)
     )
@@ -62,13 +108,21 @@ fun DetailsContent(
         scaffoldState = scaffoldState,
         sheetPeekHeight = MIN_SHEET_HEIGHT,
         sheetContent = {
-            selectedHero?.let { BottomSheetContent(selectedHero = it) }
+            selectedHero?.let {
+                BottomSheetContent(
+                    selectedHero = it,
+                    infoBoxIconColor = Color(parseColor(vibrant)),
+                    sheetBackgroundColor = Color(parseColor(darkVibrant)),
+                    contentColor = Color(parseColor(onDarkVibrant))
+                )
+            }
         },
         content = {
             selectedHero?.let { hero ->
                 BackgroundContent(
                     heroImage = hero.image,
                     imageFraction = currentSheetFraction,
+                    backgroundColor = Color(parseColor(darkVibrant)),
                     onCloseClicked = {
                         navController.popBackStack()
                     }
@@ -83,7 +137,7 @@ fun BottomSheetContent(
     selectedHero: Hero,
     infoBoxIconColor: Color = MaterialTheme.colors.primary,
     sheetBackgroundColor: Color = MaterialTheme.colors.surface,
-    contentColor: Color = MaterialTheme.colors.titleColor
+    contentColor: Color = MaterialTheme.colors.titleColor,
 ) {
     Column(
         modifier = Modifier
@@ -186,9 +240,10 @@ fun BackgroundContent(
     heroImage: String,
     imageFraction: Float = 1f,
     backgroundColor: Color = MaterialTheme.colors.surface,
-    onCloseClicked: () -> Unit
+    onCloseClicked: () -> Unit,
 ) {
     val imageUrl = "$BASE_URL${heroImage}"
+
     val painter = rememberImagePainter(imageUrl) {
         error(R.drawable.ic_placeholder)
     }

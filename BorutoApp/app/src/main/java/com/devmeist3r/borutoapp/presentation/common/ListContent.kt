@@ -1,18 +1,10 @@
 package com.devmeist3r.borutoapp.presentation.common
 
 import EmptyScreen
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
@@ -36,20 +28,14 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.util.Log
 import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.domain.model.Hero
 import com.devmeist3r.borutoapp.navigation.Screen
 import com.devmeist3r.borutoapp.presentation.components.RatingWidget
 import com.devmeist3r.borutoapp.presentation.components.ShimmerEffect
-import com.devmeist3r.borutoapp.ui.theme.HERO_ITEM_HEIGHT
-import com.devmeist3r.borutoapp.ui.theme.LARGE_PADDING
-import com.devmeist3r.borutoapp.ui.theme.MEDIUM_PADDING
-import com.devmeist3r.borutoapp.ui.theme.SMALL_PADDING
-import com.devmeist3r.borutoapp.ui.theme.topAppBarContentColor
+import com.devmeist3r.borutoapp.ui.theme.*
 import com.devmeist3r.borutoapp.util.Constants.BASE_URL
-
 
 @ExperimentalCoilApi
 @Composable
@@ -83,15 +69,14 @@ fun handlePagingResult(
     heroes: LazyPagingItems<Hero>
 ): Boolean {
     heroes.apply {
-
-        Log.d("handlePagingResult", "handlePagingResult: ${heroes.loadState}")
-
         val error = when {
             loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
             loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
             loadState.append is LoadState.Error -> loadState.append as LoadState.Error
             else -> null
         }
+
+        Log.d("ListContent", "Error: ${loadState.toString()}")
 
         return when {
             loadState.refresh is LoadState.Loading -> {
