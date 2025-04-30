@@ -38,10 +38,17 @@ object NetworkModule {
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
         val contentType = "application/json".toMediaType()
+
+        val json = Json {
+            ignoreUnknownKeys = true // ignora campos extras
+            isLenient = true         // aceita JSON levemente malformado
+            explicitNulls = false    // não exige campos nulos explicitamente
+        }
+
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(Json.asConverterFactory(contentType))
+            .addConverterFactory(json.asConverterFactory(contentType))
             .build()
     }
 
@@ -62,5 +69,4 @@ object NetworkModule {
             borutoDatabase = borutoDatabase
         )
     }
-
 }

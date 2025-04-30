@@ -2,6 +2,8 @@ package com.devmeist3r.borutoapp.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import com.devmeist3r.borutoapp.util.Constants.HERO_DATABASE_TABLE
 

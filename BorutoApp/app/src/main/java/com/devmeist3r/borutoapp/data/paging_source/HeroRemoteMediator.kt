@@ -18,7 +18,7 @@ import com.devmeist3r.borutoapp.domain.model.HeroRemoteKeys
 @ExperimentalPagingApi
 class HeroRemoteMediator @Inject constructor(
     private val borutoApi: BorutoApi,
-    private val borutoDatabase: BorutoDatabase
+    private val borutoDatabase: BorutoDatabase,
 ) : RemoteMediator<Int, Hero>() {
 
     private val heroDao = borutoDatabase.heroDao()
@@ -27,12 +27,18 @@ class HeroRemoteMediator @Inject constructor(
     override suspend fun initialize(): InitializeAction {
         val currentTime = System.currentTimeMillis()
         val lastUpdated = heroRemoteKeysDao.getRemoteKeys(heroId = 1)?.lastUpdated ?: 0L
-        val cacheTimeout = 1440
+        val cachedTimeout = 1440 // 24 hours in minutes
 
-        val diffInMinutes = (currentTime - lastUpdated) / 1000 / 60
-        return if (diffInMinutes.toInt() <= cacheTimeout) {
+        Log.d("RemoteMediator", "Current Time: ${parseMillis(currentTime)}")
+        Log.d("RemoteMediator", "Last Updated Time: ${parseMillis(lastUpdated)}")
+
+        val diffiInMinutes = (currentTime - lastUpdated) / 1000 / 60
+
+        return if (diffiInMinutes.toInt() <= cachedTimeout) {
+            Log.d("RemoteMediator", "UP TO DATE!")
             InitializeAction.SKIP_INITIAL_REFRESH
         } else {
+            Log.d("RemoteMediator", "REFRESH!")
             InitializeAction.LAUNCH_INITIAL_REFRESH
         }
     }
@@ -117,10 +123,9 @@ class HeroRemoteMediator @Inject constructor(
             }
     }
 
-//    private fun parseMillis(millis: Long): String {
-//        val date = Date(millis)
-//        val format = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.ROOT)
-//        return format.format(date)
-//    }
-
+    private fun parseMillis(millis: Long): String {
+        val date = Date(millis)
+        val format = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.ROOT)
+        return format.format(date)
+    }
 }
