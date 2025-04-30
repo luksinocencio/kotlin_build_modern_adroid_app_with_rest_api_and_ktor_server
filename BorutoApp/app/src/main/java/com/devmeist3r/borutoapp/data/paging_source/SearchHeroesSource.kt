@@ -8,8 +8,9 @@ import com.devmeist3r.borutoapp.domain.model.Hero
 
 class SearchHeroesSource @Inject constructor(
     private val borutoApi: BorutoApi,
-    private val query: String,
+    private val query: String
 ) : PagingSource<Int, Hero>() {
+
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Hero> {
         return try {
             val apiResponse = borutoApi.searchHeroes(name = query)

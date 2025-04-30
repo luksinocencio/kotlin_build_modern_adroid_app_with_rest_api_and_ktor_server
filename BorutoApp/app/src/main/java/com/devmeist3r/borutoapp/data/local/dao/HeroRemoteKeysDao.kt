@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.devmeist3r.borutoapp.domain.model.HeroRemoteKeys
 
 @Dao
-interface HeroRemoteKeyDao {
+interface HeroRemoteKeysDao {
     @Query("SELECT * FROM hero_remote_keys_table WHERE id = :heroId")
     suspend fun getRemoteKeys(heroId: Int): HeroRemoteKeys?
 

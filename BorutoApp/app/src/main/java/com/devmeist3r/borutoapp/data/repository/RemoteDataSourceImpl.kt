@@ -15,10 +15,10 @@ import com.devmeist3r.borutoapp.util.Constants.ITEMS_PER_PAGE
 
 
 @ExperimentalPagingApi
-class RemoteDataSourceImpl (
+class RemoteDataSourceImpl(
     private val borutoApi: BorutoApi,
     private val borutoDatabase: BorutoDatabase
-): RemoteDataSource {
+) : RemoteDataSource {
     private val heroDao = borutoDatabase.heroDao()
 
     override fun getAllHeroes(): Flow<PagingData<Hero>> {

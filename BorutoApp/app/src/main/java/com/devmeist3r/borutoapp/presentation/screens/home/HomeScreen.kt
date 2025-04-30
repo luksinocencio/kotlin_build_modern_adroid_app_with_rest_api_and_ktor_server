@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.annotation.ExperimentalCoilApi
 import android.annotation.SuppressLint
+import android.util.Log
 import com.devmeist3r.borutoapp.navigation.Screen
 import com.devmeist3r.borutoapp.presentation.common.ListContent
 
@@ -20,6 +21,8 @@ fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val allHeroes = homeViewModel.getAllHeroes.collectAsLazyPagingItems()
+
+    Log.d("HomeScreen", "HomeScreen: ${allHeroes.itemCount}")
 
     Scaffold(
         topBar = {

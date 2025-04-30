@@ -37,6 +37,7 @@ import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.domain.model.Hero
 import com.devmeist3r.borutoapp.navigation.Screen
@@ -56,7 +57,10 @@ fun ListContent(
     heroes: LazyPagingItems<Hero>,
     navController: NavHostController,
 ) {
+    Log.d("ListContent", "ListContent: ${heroes.itemCount}")
     val result = handlePagingResult(heroes = heroes)
+
+    Log.d("ListContent", "ListContent: $result")
 
     if (result) {
         LazyColumn(

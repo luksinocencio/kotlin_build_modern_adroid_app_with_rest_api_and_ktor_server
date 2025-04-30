@@ -19,7 +19,8 @@ import com.devmeist3r.borutoapp.util.Constants.PREFERENCES_NAME
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCES_NAME)
 
 class DataStoreOperationsImpl(context: Context) : DataStoreOperations {
-    private object PreferenceKey {
+
+    private object PreferencesKey {
         val onBoardingKey = booleanPreferencesKey(name = PREFERENCES_KEY)
     }
 
@@ -27,7 +28,7 @@ class DataStoreOperationsImpl(context: Context) : DataStoreOperations {
 
     override suspend fun saveOnBoardingState(completed: Boolean) {
         dataStore.edit { preferences ->
-            preferences[PreferenceKey.onBoardingKey] = completed
+            preferences[PreferencesKey.onBoardingKey] = completed
         }
     }
 
@@ -41,9 +42,8 @@ class DataStoreOperationsImpl(context: Context) : DataStoreOperations {
                 }
             }
             .map { preferences ->
-                val onBoardingState = preferences[PreferenceKey.onBoardingKey] == true
+                val onBoardingState = preferences[PreferencesKey.onBoardingKey] ?: false
                 onBoardingState
             }
-
     }
 }

@@ -12,10 +12,13 @@ class DatabaseConverter {
         for (item in list) {
             stringBuilder.append(item).append(separator)
         }
+
         stringBuilder.setLength(stringBuilder.length - separator.length)
         return stringBuilder.toString()
     }
 
     @TypeConverter
-    fun convertStringToList(string: String): List<String> = string.split(separator)
+    fun convertStringToList(string: String): List<String> {
+        return string.split(separator)
+    }
 }
