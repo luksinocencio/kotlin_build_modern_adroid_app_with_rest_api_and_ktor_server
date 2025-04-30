@@ -1,6 +1,6 @@
 package com.example
 
-import io.ktor.server.application.*
+import io.ktor.server.application.Application
 import com.example.plugins.*
 
 fun main(args: Array<String>): Unit =
@@ -9,9 +9,9 @@ fun main(args: Array<String>): Unit =
 @Suppress("unused")
 fun Application.module() {
     configureKoin()
+    configureRouting()
     configureSerialization()
     configureMonitoring()
-    configureRouting()
     configureDefaultHeader()
     configureStatusPages()
 }
