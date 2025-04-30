@@ -1,6 +1,5 @@
 package com.devmeist3r.borutoapp.data.remote
 
-import androidx.compose.runtime.mutableStateOf
 import com.devmeist3r.borutoapp.domain.model.ApiResponse
 import com.devmeist3r.borutoapp.domain.model.Hero
 
@@ -71,7 +70,7 @@ class FakeBorutoApi: BorutoApi {
             }
             founded
         } else {
-            heroes
+            emptyList()
         }
     }
 }

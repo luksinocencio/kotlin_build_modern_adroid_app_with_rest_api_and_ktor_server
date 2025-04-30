@@ -139,4 +139,7 @@ dependencies {
 
     // Palette API
     implementation "androidx.palette:palette-ktx:1.0.0"
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
+    implementation "org.jetbrains.kotlin:kotlin-test:2.0.21"
 }
