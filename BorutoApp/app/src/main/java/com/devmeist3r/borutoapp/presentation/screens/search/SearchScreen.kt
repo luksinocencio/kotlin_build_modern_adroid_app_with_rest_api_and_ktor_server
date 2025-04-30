@@ -1,26 +1,31 @@
 package com.devmeist3r.borutoapp.presentation.screens.search
 
-import androidx.compose.material.Scaffold
+import android.app.Activity
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.annotation.ExperimentalCoilApi
-import android.annotation.SuppressLint
 import com.devmeist3r.borutoapp.presentation.common.ListContent
+import com.devmeist3r.borutoapp.ui.theme.statusBarColor
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @ExperimentalCoilApi
 @Composable
 fun SearchScreen(
     navController: NavHostController,
-    searchViewModel: SearchViewModel = hiltViewModel(),
+    searchViewModel: SearchViewModel = hiltViewModel()
 ) {
+    val activity = LocalContext.current as Activity
     val searchQuery by searchViewModel.searchQuery
     val heroes = searchViewModel.searchedHeroes.collectAsLazyPagingItems()
+    val systemBarColor = statusBarColor.toArgb()
+
+    SideEffect { activity.window.statusBarColor = systemBarColor }
 
     Scaffold(
         topBar = {
@@ -37,15 +42,12 @@ fun SearchScreen(
                 }
             )
         },
-        content = {
-            ListContent(heroes = heroes, navController = navController)
+        content = { padding ->
+            ListContent(
+                padding = padding,
+                heroes = heroes,
+                navController = navController
+            )
         }
     )
-}
-
-@Preview
-@Composable
-private fun SearchScreenPreview() {
-    val navController = rememberNavController()
-    SearchScreen(navController = navController)
 }

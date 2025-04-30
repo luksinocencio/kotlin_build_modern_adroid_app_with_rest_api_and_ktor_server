@@ -1,6 +1,6 @@
 package com.devmeist3r.borutoapp.ui.theme
 
-import androidx.compose.material.Colors
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
@@ -17,36 +17,39 @@ val ShimmerLightGray = Color(0xFFF1F1F1)
 val ShimmerMediumGray = Color(0xFFE3E3E3)
 val ShimmerDarkGray = Color(0xFF1D1D1D)
 
-val Colors.welcomeScreenBackgroundColor
+val statusBarColor
     @Composable
-    get() = if (isLight) Color.White else Color.Black
+    get() = if (isSystemInDarkTheme()) Color.Black else Purple700
 
-val Colors.titleColor
+val welcomeScreenBackgroundColor
     @Composable
-    get() = if (isLight) DarkGray else LightGray
+    get() = if (isSystemInDarkTheme()) Color.Black else Color.White
 
-val Colors.descriptionColor
+val titleColor
     @Composable
-    get() = if (isLight) DarkGray.copy(alpha = 0.5f)
-    else LightGray.copy(alpha = 0.5f)
+    get() = if (isSystemInDarkTheme()) LightGray else DarkGray
 
-val Colors.activeIndicatorColor
+val descriptionColor
     @Composable
-    get() = if (isLight) Purple500 else Purple700
+    get() = if (isSystemInDarkTheme()) LightGray.copy(alpha = 0.5f)
+    else DarkGray.copy(alpha = 0.5f)
 
-val Colors.inactiveIndicatorColor
+val activeIndicatorColor
     @Composable
-    get() = if (isLight) LightGray else DarkGray
+    get() = if (isSystemInDarkTheme()) Purple700 else Purple500
 
-val Colors.buttonBackgroundColor
+val inactiveIndicatorColor
     @Composable
-    get() = if (isLight) Purple500 else Purple700
+    get() = if (isSystemInDarkTheme()) DarkGray else LightGray
 
-val Colors.topAppBarContentColor: Color
+val buttonBackgroundColor
     @Composable
-    get() = if (isLight) Color.White else LightGray
+    get() = if (isSystemInDarkTheme()) Purple700 else Purple500
 
-val Colors.topAppBarBackgroundColor: Color
+val topAppBarContentColor: Color
     @Composable
-    get() = if (isLight) Purple500 else Color.Black
+    get() = if (isSystemInDarkTheme()) LightGray else Color.White
 
+val topAppBarBackgroundColor: Color
+    @Composable
+    get() = if (isSystemInDarkTheme()) Color.Black else Purple500

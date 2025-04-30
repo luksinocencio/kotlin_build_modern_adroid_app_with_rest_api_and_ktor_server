@@ -4,15 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.AppBarDefaults
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -36,7 +28,7 @@ fun SearchTopBar(
     text: String,
     onTextChange: (String) -> Unit,
     onSearchClicked: (String) -> Unit,
-    onCloseClicked: () -> Unit,
+    onCloseClicked: () -> Unit
 ) {
     SearchWidget(
         text = text,
@@ -51,7 +43,7 @@ fun SearchWidget(
     text: String,
     onTextChange: (String) -> Unit,
     onSearchClicked: (String) -> Unit,
-    onCloseClicked: () -> Unit,
+    onCloseClicked: () -> Unit
 ) {
     Surface(
         modifier = Modifier
@@ -60,8 +52,7 @@ fun SearchWidget(
             .semantics {
                 contentDescription = "SearchWidget"
             },
-        elevation = AppBarDefaults.TopAppBarElevation,
-        color = MaterialTheme.colors.topAppBarBackgroundColor
+        color = topAppBarBackgroundColor
     ) {
         TextField(
             modifier = Modifier
@@ -73,25 +64,26 @@ fun SearchWidget(
             onValueChange = { onTextChange(it) },
             placeholder = {
                 Text(
-                    modifier = Modifier.alpha(ContentAlpha.medium),
-                    text = "Search here",
-                    color = Color.White,
+                    modifier = Modifier
+                        .alpha(alpha = 0.5f),
+                    text = "Search here...",
+                    color = Color.White
                 )
             },
             textStyle = TextStyle(
-                color = MaterialTheme.colors.topAppBarContentColor
+                color = topAppBarContentColor
             ),
             singleLine = true,
             leadingIcon = {
                 IconButton(
                     modifier = Modifier
-                        .alpha(ContentAlpha.medium),
+                        .alpha(alpha = 0.5f),
                     onClick = {}
                 ) {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = stringResource(R.string.search_icon),
-                        tint = MaterialTheme.colors.topAppBarContentColor
+                        tint = topAppBarContentColor
                     )
                 }
             },
@@ -111,8 +103,8 @@ fun SearchWidget(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = stringResource(R.string.search_icon),
-                        tint = MaterialTheme.colors.topAppBarContentColor
+                        contentDescription = stringResource(R.string.close_icon),
+                        tint = topAppBarContentColor
                     )
                 }
             },
@@ -124,19 +116,20 @@ fun SearchWidget(
                     onSearchClicked(text)
                 }
             ),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.Transparent,
-                cursorColor = MaterialTheme.colors.topAppBarContentColor
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                cursorColor = topAppBarContentColor
             )
         )
     }
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview
 fun SearchWidgetPreview() {
     SearchWidget(
-        text = "Search",
+        text = "",
         onTextChange = {},
         onSearchClicked = {},
         onCloseClicked = {}

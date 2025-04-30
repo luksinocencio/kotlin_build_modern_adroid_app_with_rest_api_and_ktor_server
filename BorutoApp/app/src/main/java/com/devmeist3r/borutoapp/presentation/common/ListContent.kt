@@ -1,21 +1,20 @@
 package com.devmeist3r.borutoapp.presentation.common
 
-import EmptyScreen
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -25,10 +24,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
-import android.util.Log
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.domain.model.Hero
 import com.devmeist3r.borutoapp.navigation.Screen
@@ -40,6 +38,7 @@ import com.devmeist3r.borutoapp.util.Constants.BASE_URL
 @ExperimentalCoilApi
 @Composable
 fun ListContent(
+    padding: PaddingValues,
     heroes: LazyPagingItems<Hero>,
     navController: NavHostController
 ) {
@@ -47,18 +46,21 @@ fun ListContent(
 
     if (result) {
         LazyColumn(
+            modifier = Modifier
+                .padding(
+                    top = padding.calculateTopPadding(),
+                    bottom = padding.calculateBottomPadding()
+                ),
             contentPadding = PaddingValues(all = SMALL_PADDING),
             verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
         ) {
             items(
-                items = heroes,
+                items = heroes.itemSnapshotList.items,
                 key = { hero ->
                     hero.id
                 }
             ) { hero ->
-                hero?.let {
-                    HeroItem(hero = it, navController = navController)
-                }
+                HeroItem(hero = hero, navController = navController)
             }
         }
     }
@@ -75,8 +77,6 @@ fun handlePagingResult(
             loadState.append is LoadState.Error -> loadState.append as LoadState.Error
             else -> null
         }
-
-        Log.d("ListContent", "Error: ${loadState.toString()}")
 
         return when {
             loadState.refresh is LoadState.Loading -> {
@@ -102,11 +102,6 @@ fun HeroItem(
     hero: Hero,
     navController: NavHostController
 ) {
-    val painter = rememberImagePainter(data = "$BASE_URL${hero.image}") {
-        placeholder(R.drawable.ic_placeholder)
-        error(R.drawable.ic_placeholder)
-    }
-
     Box(
         modifier = Modifier
             .height(HERO_ITEM_HEIGHT)
@@ -116,10 +111,14 @@ fun HeroItem(
         contentAlignment = Alignment.BottomStart
     ) {
         Surface(shape = RoundedCornerShape(size = LARGE_PADDING)) {
-            Image(
+            AsyncImage(
                 modifier = Modifier.fillMaxSize(),
-                painter = painter,
-                contentDescription = stringResource(R.string.hero_image),
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(data = "$BASE_URL${hero.image}")
+                    .placeholder(drawableResId = R.drawable.ic_placeholder)
+                    .error(drawableResId = R.drawable.ic_placeholder)
+                    .build(),
+                contentDescription = stringResource(id = R.string.hero_image),
                 contentScale = ContentScale.Crop
             )
         }
@@ -127,7 +126,7 @@ fun HeroItem(
             modifier = Modifier
                 .fillMaxHeight(0.4f)
                 .fillMaxWidth(),
-            color = Color.Black.copy(alpha = ContentAlpha.medium),
+            color = Color.Black.copy(alpha = 0.5f),
             shape = RoundedCornerShape(
                 bottomStart = LARGE_PADDING,
                 bottomEnd = LARGE_PADDING
@@ -140,16 +139,16 @@ fun HeroItem(
             ) {
                 Text(
                     text = hero.name,
-                    color = MaterialTheme.colors.topAppBarContentColor,
-                    fontSize = MaterialTheme.typography.h5.fontSize,
+                    color = topAppBarContentColor,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = hero.about,
-                    color = Color.White.copy(alpha = ContentAlpha.medium),
-                    fontSize = MaterialTheme.typography.subtitle1.fontSize,
+                    color = Color.White.copy(alpha = 0.5f),
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -164,7 +163,7 @@ fun HeroItem(
                     Text(
                         text = "(${hero.rating})",
                         textAlign = TextAlign.Center,
-                        color = Color.White.copy(alpha = ContentAlpha.medium)
+                        color = Color.White.copy(alpha = 0.5f)
                     )
                 }
             }

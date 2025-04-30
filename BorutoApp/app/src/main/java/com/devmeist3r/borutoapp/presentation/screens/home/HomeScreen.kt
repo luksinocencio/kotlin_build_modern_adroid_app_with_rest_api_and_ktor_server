@@ -1,28 +1,31 @@
 package com.devmeist3r.borutoapp.presentation.screens.home
 
-import androidx.compose.material.Scaffold
+import android.app.Activity
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.annotation.ExperimentalCoilApi
-import android.annotation.SuppressLint
-import android.util.Log
 import com.devmeist3r.borutoapp.navigation.Screen
 import com.devmeist3r.borutoapp.presentation.common.ListContent
+import com.devmeist3r.borutoapp.ui.theme.statusBarColor
+import com.devmeist3r.borutoapp.ui.theme.welcomeScreenBackgroundColor
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @ExperimentalCoilApi
 @Composable
 fun HomeScreen(
     navController: NavHostController,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
+    val activity = LocalContext.current as Activity
     val allHeroes = homeViewModel.getAllHeroes.collectAsLazyPagingItems()
+    val systemBarColor = statusBarColor.toArgb()
 
-    Log.d("HomeScreen", "HomeScreen: ${allHeroes.itemCount}")
+    SideEffect { activity.window.statusBarColor = systemBarColor }
 
     Scaffold(
         topBar = {
@@ -32,20 +35,13 @@ fun HomeScreen(
                 }
             )
         },
-        content = {
+        containerColor = welcomeScreenBackgroundColor,
+        content = { padding ->
             ListContent(
+                padding = padding,
                 heroes = allHeroes,
                 navController = navController
             )
         }
     )
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun HomeScreenPreview() {
-    val navController = rememberNavController()
-    HomeScreen(navController = navController)
-}
-
-
