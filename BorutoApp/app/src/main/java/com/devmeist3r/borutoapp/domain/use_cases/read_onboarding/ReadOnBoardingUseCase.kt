@@ -5,7 +5,7 @@ import com.devmeist3r.borutoapp.data.repository.Repository
 
 
 class ReadOnBoardingUseCase(
-    private val repository: Repository,
+    private val repository: Repository
 ) {
     operator fun invoke(): Flow<Boolean> {
         return repository.readOnBoardingState()

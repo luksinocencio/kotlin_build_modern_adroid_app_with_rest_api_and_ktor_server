@@ -4,7 +4,7 @@ import com.devmeist3r.borutoapp.data.repository.Repository
 
 
 class SaveOnBoardingUseCase(
-    private val repository: Repository,
+    private val repository: Repository
 ) {
     suspend operator fun invoke(completed: Boolean) {
         repository.saveOnBoardingState(completed = completed)

@@ -37,7 +37,6 @@ import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.util.Log
 import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.domain.model.Hero
 import com.devmeist3r.borutoapp.navigation.Screen
@@ -55,12 +54,9 @@ import com.devmeist3r.borutoapp.util.Constants.BASE_URL
 @Composable
 fun ListContent(
     heroes: LazyPagingItems<Hero>,
-    navController: NavHostController,
+    navController: NavHostController
 ) {
-    Log.d("ListContent", "ListContent: ${heroes.itemCount}")
     val result = handlePagingResult(heroes = heroes)
-
-    Log.d("ListContent", "ListContent: $result")
 
     if (result) {
         LazyColumn(
@@ -83,7 +79,7 @@ fun ListContent(
 
 @Composable
 fun handlePagingResult(
-    heroes: LazyPagingItems<Hero>,
+    heroes: LazyPagingItems<Hero>
 ): Boolean {
     heroes.apply {
         val error = when {
@@ -98,17 +94,14 @@ fun handlePagingResult(
                 ShimmerEffect()
                 false
             }
-
             error != null -> {
                 EmptyScreen(error = error, heroes = heroes)
                 false
             }
-
             heroes.itemCount < 1 -> {
                 EmptyScreen()
                 false
             }
-
             else -> true
         }
     }
@@ -118,7 +111,7 @@ fun handlePagingResult(
 @Composable
 fun HeroItem(
     hero: Hero,
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     val painter = rememberImagePainter(data = "$BASE_URL${hero.image}") {
         placeholder(R.drawable.ic_placeholder)

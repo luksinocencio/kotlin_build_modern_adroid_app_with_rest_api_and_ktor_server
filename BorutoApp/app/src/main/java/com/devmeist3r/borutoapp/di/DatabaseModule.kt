@@ -20,7 +20,7 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(
-        @ApplicationContext context: Context,
+        @ApplicationContext context: Context
     ): BorutoDatabase {
         return Room.databaseBuilder(
             context,
@@ -31,7 +31,11 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(database: BorutoDatabase): LocalDataSource {
-        return LocalDataSourceImpl(borutoDatabase = database)
+    fun provideLocalDataSource(
+        database: BorutoDatabase
+    ): LocalDataSource {
+        return LocalDataSourceImpl(
+            borutoDatabase = database
+        )
     }
 }

@@ -11,6 +11,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import android.content.res.Configuration
 import com.devmeist3r.borutoapp.ui.theme.SMALL_PADDING
 import com.devmeist3r.borutoapp.ui.theme.titleColor
 
@@ -18,12 +19,11 @@ import com.devmeist3r.borutoapp.ui.theme.titleColor
 fun OrderedList(
     title: String,
     items: List<String>,
-    textColor: Color,
+    textColor: Color
 ) {
     Column {
         Text(
-            modifier = Modifier
-                .padding(bottom = SMALL_PADDING),
+            modifier = Modifier.padding(bottom = SMALL_PADDING),
             text = title,
             color = textColor,
             fontSize = MaterialTheme.typography.subtitle1.fontSize,
@@ -31,22 +31,31 @@ fun OrderedList(
         )
         items.forEachIndexed { index, item ->
             Text(
-                modifier = Modifier
-                    .alpha(ContentAlpha.medium),
-                text = "${index + 1} .$item",
+                modifier = Modifier.alpha(ContentAlpha.medium),
+                text = "${index + 1}. $item",
                 color = textColor,
-                fontSize = MaterialTheme.typography.body1.fontSize,
+                fontSize = MaterialTheme.typography.body1.fontSize
             )
         }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-private fun OrderedListPreview() {
+@Preview(showBackground = true)
+fun OrderedListPreview() {
     OrderedList(
         title = "Family",
-        items = listOf("Minato", "Kushina", "Naruto"),
+        items = listOf("Minato", "Kushina"),
+        textColor = MaterialTheme.colors.titleColor
+    )
+}
+
+@Composable
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+fun OrderedListDarkPreview() {
+    OrderedList(
+        title = "Family",
+        items = listOf("Minato", "Kushina"),
         textColor = MaterialTheme.colors.titleColor
     )
 }

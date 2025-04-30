@@ -24,6 +24,6 @@ sealed class OnBoardingPage(
     object Third : OnBoardingPage(
         image = R.drawable.power,
         title = "Power",
-        description = "Check out your hero's power and see how much are they strong comparing to others."
+        description = "Check out your hero's power and  see how much are they strong comparing to others."
     )
 }

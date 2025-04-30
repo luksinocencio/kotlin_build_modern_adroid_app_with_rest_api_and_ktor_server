@@ -62,4 +62,5 @@ object NetworkModule {
             borutoDatabase = borutoDatabase
         )
     }
+
 }

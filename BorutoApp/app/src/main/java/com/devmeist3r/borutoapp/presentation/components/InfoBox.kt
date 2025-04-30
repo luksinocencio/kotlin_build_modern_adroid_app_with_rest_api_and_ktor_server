@@ -33,7 +33,7 @@ fun InfoBox(
     iconColor: Color,
     bigText: String,
     smallText: String,
-    textColor: Color,
+    textColor: Color
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
@@ -51,10 +51,8 @@ fun InfoBox(
                 fontSize = MaterialTheme.typography.h6.fontSize,
                 fontWeight = FontWeight.Black
             )
-
             Text(
-                modifier = Modifier
-                    .alpha(ContentAlpha.medium),
+                modifier = Modifier.alpha(ContentAlpha.medium),
                 text = smallText,
                 color = textColor,
                 fontSize = MaterialTheme.typography.overline.fontSize
@@ -76,7 +74,7 @@ fun InfoBoxPreview() {
 }
 
 @Composable
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun InfoBoxDarkPreview() {
     InfoBox(
         icon = painterResource(id = R.drawable.ic_bolt),

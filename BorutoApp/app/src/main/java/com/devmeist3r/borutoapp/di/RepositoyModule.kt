@@ -20,18 +20,19 @@ import com.devmeist3r.borutoapp.domain.use_cases.search_heroes.SearchHeroesUseCa
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoyModule {
+object RepositoryModule {
+
     @Provides
     @Singleton
-    fun provideDataStoreOperation(
-        @ApplicationContext context: Context,
+    fun provideDataStoreOperations(
+        @ApplicationContext context: Context
     ): DataStoreOperations {
         return DataStoreOperationsImpl(context = context)
     }
 
     @Provides
     @Singleton
-    fun provideUseCase(repository: Repository): UseCases {
+    fun provideUseCases(repository: Repository): UseCases {
         return UseCases(
             saveOnBoardingUseCase = SaveOnBoardingUseCase(repository),
             readOnBoardingUseCase = ReadOnBoardingUseCase(repository),
