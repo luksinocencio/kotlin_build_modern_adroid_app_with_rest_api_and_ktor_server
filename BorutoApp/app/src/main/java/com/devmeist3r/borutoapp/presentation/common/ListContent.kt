@@ -27,6 +27,7 @@ import androidx.paging.compose.LazyPagingItems
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import android.util.Log
 import com.devmeist3r.borutoapp.R
 import com.devmeist3r.borutoapp.domain.model.Hero
 import com.devmeist3r.borutoapp.navigation.Screen
@@ -77,6 +78,8 @@ fun handlePagingResult(
             loadState.append is LoadState.Error -> loadState.append as LoadState.Error
             else -> null
         }
+
+        Log.d("handlePagingResult", "handlePagingResult: ${loadState.toString()}")
 
         return when {
             loadState.refresh is LoadState.Loading -> {

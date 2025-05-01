@@ -1,9 +1,10 @@
 package com.devmeist3r.borutoapp.util
 
-import android.os.Build
-import com.devmeist3r.borutoapp.BuildConfig
-
 object Constants {
+
+//    const val BASE_URL = "http://192.168.1.71"
+    const val BASE_URL = "http://10.0.2.2:8080"
+
     const val DETAILS_ARGUMENT_KEY = "heroId"
 
     const val BORUTO_DATABASE = "boruto_database"
@@ -21,21 +22,4 @@ object Constants {
 
     const val MIN_BACKGROUND_IMAGE_HEIGHT = 0.4f
 
-    val BASE_URL: String
-        get() = if (isEmulator()) {
-            BuildConfig.BASE_URL_EMULATOR
-        } else {
-            BuildConfig.BASE_URL_DEVICE
-        }
-
-    private fun isEmulator(): Boolean {
-        return (Build.FINGERPRINT.startsWith("generic")
-            || Build.FINGERPRINT.lowercase().contains("vbox")
-            || Build.FINGERPRINT.lowercase().contains("test-keys")
-            || Build.MODEL.contains("Emulator")
-            || Build.MODEL.contains("Android SDK built for x86")
-            || Build.MANUFACTURER.contains("Genymotion")
-            || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
-            || "google_sdk" == Build.PRODUCT)
-    }
 }
